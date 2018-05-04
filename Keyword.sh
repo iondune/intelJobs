@@ -8,7 +8,12 @@ for file in $(find jobs -type f | xargs grep -il "$1") ; do
 	echo -n " - ("
 	grep -oE 'JR[0-9]+' $file | tr -d '\n'
 	echo -n ") "
-	xidel --silent "https://jobs.intel.com/ShowJob/Id/$id" --css '.jobdescriptiontbl h3'
+	title=$(xidel --silent "https://jobs.intel.com/ShowJob/Id/$id" --css '.jobdescriptiontbl h3')
+	if [ -z "$title" ] ; then
+		echo "[[Unlisted]]"
+	else
+		echo "$title"
+	fi
 
 done
 
