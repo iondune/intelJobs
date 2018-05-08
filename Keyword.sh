@@ -10,9 +10,9 @@ for file in $(find jobs -type f | xargs grep -il "$1") ; do
 	echo -n ") "
 	title=$(xidel --silent "https://jobs.intel.com/ShowJob/Id/$id" --css '.jobdescriptiontbl h3')
 	if [ -z "$title" ] ; then
-		echo "[[Unlisted]]"
+		echo -e "$txtred[[Unlisted]]$txtrst"
 	else
-		echo "$title"
+		echo -e "$bldwht$title$txtrst ($(Where.sh $id))"
 	fi
 
 done
